@@ -128,19 +128,14 @@ _start:
 	/* Set up ACTLR */
 	mov x0, #ACTLR_VAL
 	msr ACTLR_EL3, x0
-	
-  mov x0, #BIT(0)
-	msr ACTLR_EL2, x0
 
 	/* Set SMPEN */
 	mov x0, #CPUECTLR_EL1_SMPEN
 	msr CPUECTLR_EL1, x0
 
-  /* disable prefecther 
+  /* disable prefecther */
 	mov x0, #DISABLE_PREFETCHER
-	msr CPUACTLR_EL1, x0 */
-
-
+	msr CPUACTLR_EL1, x0
 
 #ifdef GIC
         bl      setup_gic
