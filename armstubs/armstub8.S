@@ -71,8 +71,12 @@
 #define CPUECTLR_EL1		S3_1_C15_C2_1
 #define CPUECTLR_EL1_SMPEN	BIT(6)
 
-#define CPUACTLR_EL1    S3_1_C15_C2_0
-#define DISABLE_PREFETCHER BIT(56)
+#define CPUECTLR_EL1_VAL \
+	(BIT(6) | BIT(38))
+
+#define CPUACTLR_EL1		S3_1_C15_C2_0
+#define CPUACTLR_VAL		BIT(56)
+
 
 #define SPSR_EL3_D		BIT(9)
 #define SPSR_EL3_A		BIT(8)
@@ -133,14 +137,11 @@ _start:
 	msr ACTLR_EL2, x0
 
 	/* Set SMPEN */
-	mov x0, #CPUECTLR_EL1_SMPEN
+	mov x0, #CPUECTLR_EL1_VAL 
 	msr CPUECTLR_EL1, x0
 
-  /* disable prefecther 
-	mov x0, #DISABLE_PREFETCHER
-	msr CPUACTLR_EL1, x0 */
-
-
+	mov x0, #CPUACTLR_VAL
+	msr CPUACTLR_EL1, x0 
 
 #ifdef GIC
         bl      setup_gic
